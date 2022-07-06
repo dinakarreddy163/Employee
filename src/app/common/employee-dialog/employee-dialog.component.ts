@@ -8,18 +8,29 @@ import { Employee } from 'src/app/shared/employee';
   styleUrls: ['./employee-dialog.component.scss']
 })
 export class EmployeeDialogComponent implements OnInit {
-   employeeData:any;
+  employee: any;
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: Employee,
+    @Inject(MAT_DIALOG_DATA) data: any,
     private dialogRef: MatDialogRef<EmployeeDialogComponent>) {
-  console.log(data)
-  this.employeeData=data;
-    this.dialogRef.updateSize('300vw','300vw')
+    this.employee = data;
+    this.dialogRef.updateSize('300vw', '300vw')
   }
   ngOnInit(): void {
   }
-  employeeSubmit()
+  employeeSubmit() {
+    this.dialogRef.close(this.employee);
+  }
+  onConfirmClick(): void {
+    this.dialogRef.close();
+  }
+  ageCheck()
   {
-    console.log(this.employeeData);
+    let date=new Date(this.employee.dob);
+    let dateNow=new Date();
+    date.setFullYear(dateNow.getFullYear()-date.getFullYear());
+    date.setMonth(dateNow.getMonth()-date.getMonth());
+    this.employee.age=date.getFullYear();
+
+
   }
 }

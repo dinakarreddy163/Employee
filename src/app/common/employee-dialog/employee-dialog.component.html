@@ -1,45 +1,51 @@
-<form class="example-form">
-    <mat-grid-list cols="2" >
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Employee Code</mat-label>
-                <input matInput [value]="employeeData.empcode" [(ngModel)]="employeeData.empcode" name="empcode">
-            </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Employee Name</mat-label>
-                <input matInput [value]="employeeData.empName" [(ngModel)]="employeeData.empName" name="empName">
-            </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Date of Birth</mat-label>
-                <input matInput type="date" [value]="employeeData.dob" [(ngModel)]="employeeData.dob" name="dob">
-            </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Date Of Joining</mat-label>
-                <input matInput type="date" [value]="employeeData.doj" [(ngModel)]="employeeData.doj" name="doj">
-            </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Qualification</mat-label>
-                <input matInput [value]="employeeData.highestQualification"
-                    [(ngModel)]="employeeData.highestQualification" name="highestQualification">
-            </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Manager Code</mat-label>
-                <input matInput [value]="employeeData.managerCode" [(ngModel)]="employeeData.managerCode"
-                    name="managerCode">
-            </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile>
-        <button mat-button color="accent" (click)="employeeSubmit()">Accent</button>
-        </mat-grid-tile>
-    </mat-grid-list>
+<label *ngIf="employee.type=='edit'">Employee Details Edit</label>
+<label *ngIf="employee.type=='new'">Employee Details New</label>
+<form class="example-form"  #f="ngForm">
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Employee Code</mat-label>
+        <input matInput [value]="employee.empcode" [(ngModel)]="employee.empcode" [disabled]="employee.type=='edit'" required maxlength="5" pattern="^[a-zA-Z0-9 ]+$" name="empcode"  #empCode="ngModel">
+    <mat-error   *ngIf="empCode.errors && (empCode.dirty || empCode.touched)">
+        <p *ngIf="empCode.errors['required']">EmpCode is required</p>
+        <p *ngIf="empCode.errors['pattern']">Please enter only Alphanumaric </p></mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Employee Name</mat-label>
+        <input matInput [value]="employee.empName" [(ngModel)]="employee.empName" name="empName" required #empName="ngModel" pattern="^[a-zA-Z]+$">
+        <mat-error   *ngIf="empName.errors && (empName.dirty || empName.touched)">
+            <p *ngIf="empName.errors['required']">EmpName is required</p>
+            <p *ngIf="empName.errors['pattern']">Please enter only Alphabet </p></mat-error>
+        </mat-form-field>
+
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput type="date" [value]="employee.dob" [(ngModel)]="employee.dob" required name="dob" (change)="ageCheck()" #dob="ngModel">
+        <mat-error   *ngIf="dob.errors && (dob.dirty || dob.touched)">
+            <p *ngIf="dob.errors['required']">EmpName is required</p>
+            <p *ngIf="employee.age>=21">Employee age should be minimum 21 years</p></mat-error>
+     
+           <mat-error> <p *ngIf="employee.age<=21">Employee age should be minimum 21 years</p></mat-error>
+     
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Date Of Joining</mat-label>
+        <input matInput type="date" [value]="employee.doj" [(ngModel)]="employee.doj"  required name="doj">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Qualification</mat-label>
+        <input matInput [value]="employee.highestQualification" [(ngModel)]="employee.highestQualification" required
+            name="highestQualification">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Manager Code</mat-label>
+        <input matInput [value]="employee.managerCode" [(ngModel)]="employee.managerCode" required name="managerCode">
+    </mat-form-field>
+    <br>
+    <button class="btn btn-primary" [disabled]="f.invalid" (click)="employeeSubmit()">Submit</button>
+    <button class="btn btn-danger" (click)="onConfirmClick()">Cancel</button>
+
 </form>
