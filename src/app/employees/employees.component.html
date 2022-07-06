@@ -1,0 +1,44 @@
+<mat-table #table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="employeeCode">
+      <mat-header-cell *matHeaderCellDef> Employee Code </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.empcode}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="employeeName">
+      <mat-header-cell *matHeaderCellDef>Employee Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.empName}} </mat-cell>
+    </ng-container>
+
+   
+    <ng-container matColumnDef="dob">
+      <mat-header-cell *matHeaderCellDef> DOB </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.dob}} </mat-cell>
+    </ng-container>
+
+   
+    <ng-container matColumnDef="doj">
+      <mat-header-cell *matHeaderCellDef> DOJ </mat-header-cell>   
+      <mat-cell *matCellDef="let element"> {{element.doj}} </mat-cell>
+    </ng-container>
+
+      
+    <ng-container matColumnDef="qualification"> 
+        <mat-header-cell *matHeaderCellDef> Qualification </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.highestQualification}} </mat-cell>
+      </ng-container>
+
+        
+    <ng-container matColumnDef="managerCode">
+        <mat-header-cell *matHeaderCellDef> Manager Code </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.managerCode}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <a (click)="openDialog(element,'edit')">Edit</a> </mat-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
