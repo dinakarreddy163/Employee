@@ -37,8 +37,8 @@
 
       <ng-container matColumnDef="action">
         <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
-        <mat-cell *matCellDef="let element"> <a class="fa fa-edit" (click)="openDialog('edit',element)">Edit</a>
-          <a class="fa fa-edit" (click)="deleteDetail(element)">Delete</a> </mat-cell>
+        <mat-cell *matCellDef="let element" style="cursor:pointer;"> <mat-icon (click)="openDialog('edit',element)" style="margin: 7px;">edit</mat-icon>
+          <mat-icon (click)="deleteDetail(element)">delete</mat-icon> </mat-cell>
       </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

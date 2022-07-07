@@ -11,10 +11,10 @@
 
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Employee Name</mat-label>
-        <input matInput [value]="employee.empName" [(ngModel)]="employee.empName" name="empName" required #empName="ngModel" pattern="^[a-zA-Z]+$">
+        <input matInput [value]="employee.empName" [(ngModel)]="employee.empName" name="empName" required #empName="ngModel" pattern="^[a-zA-Z_ ]+$">
         <mat-error   *ngIf="empName.errors && (empName.dirty || empName.touched)">
             <p *ngIf="empName.errors['required']">EmpName is required</p>
-            <p *ngIf="empName.errors['pattern']">Please enter only Alphabet </p></mat-error>
+            <p *ngIf="empName.errors['pattern']">Please enter only alphabet </p></mat-error>
         </mat-form-field>
 
 
@@ -22,30 +22,32 @@
         <mat-label>Date of Birth</mat-label>
         <input matInput type="date" [value]="employee.dob" [(ngModel)]="employee.dob" required name="dob" (change)="ageCheck()" #dob="ngModel">
         <mat-error   *ngIf="dob.errors && (dob.dirty || dob.touched)">
-            <p *ngIf="dob.errors['required']">EmpName is required</p>
-            <p *ngIf="employee.age>=21">Employee age should be minimum 21 years</p></mat-error>
-     
-           <mat-error> <p *ngIf="employee.age<=21">Employee age should be minimum 21 years</p></mat-error>
+            <p *ngIf="dob.errors['required']">EmpName is required</p></mat-error>
+           <mat-error *ngIf="employee.age<=21"> <p >Employee age should be minimum 21 years</p></mat-error>
      
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Date Of Joining</mat-label>
-        <input matInput type="date" [value]="employee.doj" [(ngModel)]="employee.doj"  required name="doj">
+        <input matInput type="date" [value]="employee.doj" (change)="ageCheck()"  [(ngModel)]="employee.doj"  required name="doj" #doj="ngModel">
+        <mat-error   *ngIf="doj.errors && (doj.dirty || doj.touched)">
+            <p *ngIf="doj.errors['required']">DOJ is required</p></mat-error>
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Qualification</mat-label>
         <input matInput [value]="employee.highestQualification" [(ngModel)]="employee.highestQualification" required
-            name="highestQualification">
+            name="highestQualification" #highestQualification="ngModel">
+            <mat-error   *ngIf="highestQualification.errors && (highestQualification.dirty || highestQualification.touched)">
+                <p *ngIf="highestQualification.errors['required']">Highest Qualification is required</p></mat-error>
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Manager Code</mat-label>
-        <input matInput [value]="employee.managerCode" [(ngModel)]="employee.managerCode" required name="managerCode">
+        <input matInput [value]="employee.managerCode" [(ngModel)]="employee.managerCode" name="managerCode">
     </mat-form-field>
     <br>
-    <button class="btn btn-primary" [disabled]="f.invalid" (click)="employeeSubmit()">Submit</button>
+    <button class="btn btn-primary" [disabled]="f.invalid" (click)="employeeSubmit()" style="margin: 7px;">Submit</button>
     <button class="btn btn-danger" (click)="onConfirmClick()">Cancel</button>
 
 </form>

@@ -25,7 +25,9 @@ export class EmployeeDialogComponent implements OnInit {
   }
   ageCheck()
   {
+
     let date=new Date(this.employee.dob);
+    let dateoj=new Date(this.employee.doj);
     let dateNow=new Date();
     date.setFullYear(dateNow.getFullYear()-date.getFullYear());
     date.setMonth(dateNow.getMonth()-date.getMonth());
